@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-import ...
+import csv
+import json
+import string
 
 
 def main(filename):
@@ -13,16 +15,15 @@ def main(filename):
     for line in lines:
         # split a line of text into a list words
         # "I have a dream." => ["I", "have", "a", "dream."]
-        words = list(lines)
+        words = line.split()
 
         # check the format of words and append it to "all_words" list
         for word in words:
             # then, remove (strip) unwanted punctuations from every word
             # "dream." => "dream"
-            import string
             word = words.strip(string.punctuation)
             # check if word is not empty
-            if word:
+            if word !=(" "):
                 # append the word to "all_words" list
                 all_words.append(word)
 
@@ -35,7 +36,6 @@ def main(filename):
     # a,12345
     # I,23456
     # ...
-    import csv
     with open("wordcount.csv","w") as csv_file:
         # create a csv writer from a file object (or descriptor)
         writer = csv.writer(csv_file)
@@ -45,7 +45,6 @@ def main(filename):
         writer.writerows(writer.writerow)
 
     # dump to a json file named "wordcount.json"
-    import json
     with open("wordcount.json","w") as json_file:
         # create a json writer from a file object (or descriptor)
         json.dump(wordcount.json,json_file)
