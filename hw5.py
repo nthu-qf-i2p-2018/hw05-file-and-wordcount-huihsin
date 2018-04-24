@@ -2,11 +2,13 @@
 import csv
 import json
 import string
+import pickle
 
 
 def main(filename):
     # read file into lines
-    lines = txtfile.readlines(filename)
+    txtfile=open(filename)
+    lines = txtfile.readlines()
 
     # declare a word list
     all_words = []
@@ -15,13 +17,14 @@ def main(filename):
     for line in lines:
         # split a line of text into a list words
         # "I have a dream." => ["I", "have", "a", "dream."]
+        line=line.strip()
         words = line.split()
 
         # check the format of words and append it to "all_words" list
         for word in words:
             # then, remove (strip) unwanted punctuations from every word
             # "dream." => "dream"
-            word = words.strip(string.punctuation)
+            word = word.strip(string.punctuation)
             # check if word is not empty
             if word !=(" "):
                 # append the word to "all_words" list
@@ -30,6 +33,7 @@ def main(filename):
     # compute word count from all_words
     from collections import Counter
     counter = Counter(all_words)
+    counter.most_common()
 
     # dump to a csv file named "wordcount.csv":
     # word,count
@@ -42,19 +46,18 @@ def main(filename):
         # write table head
         writer.writerow(['word', 'count'])
         # write all (word, count) pair into the csv writer
-        writer.writerows(writer.writerow)
+        writer.writerows(counter.most_common())
 
     # dump to a json file named "wordcount.json"
-    with open("wordcount.json","w") as json_file:
         # create a json writer from a file object (or descriptor)
-        json.dump(wordcount.json,json_file)
-        # write table head
-        writer.writerow(['word', 'count'])
-        # write all (word, count) pair into the json writer
-        writer.writerows(writer.writerow)
+        json.dump(counter,open('wordcount.json','w'))
 
     # BONUS: dump to a pickle file named "wordcount.pkl"
     # hint: dump the Counter object directly
+    f=open('wordcount.pkl','wb')
+    pickle.dump(counter,f)
+    f.close()
+       #pickle.dump(counter,open('wordcount.pickle','wb'))
 
 
 if __name__ == '__main__':
