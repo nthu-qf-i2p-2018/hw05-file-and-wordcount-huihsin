@@ -26,8 +26,8 @@ def main(filename):
             # "dream." => "dream"
             word = word.strip(string.punctuation)
             # check if word is not empty
-            if word !=(" "):
-                # append the word to "all_words" list
+            if word !="":
+            # append the word to "all_words" list
                 all_words.append(word)
 
     # compute word count from all_words
@@ -40,13 +40,14 @@ def main(filename):
     # a,12345
     # I,23456
     # ...
-    with open("wordcount.csv","w") as csv_file:
+    with open('wordcount.csv','w') as csv_file:
         # create a csv writer from a file object (or descriptor)
         writer = csv.writer(csv_file)
         # write table head
         writer.writerow(['word', 'count'])
         # write all (word, count) pair into the csv writer
         writer.writerows(counter.most_common())
+        csv_file.close()
 
     # dump to a json file named "wordcount.json"
         # create a json writer from a file object (or descriptor)
